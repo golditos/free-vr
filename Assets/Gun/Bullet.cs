@@ -30,11 +30,13 @@ public class Bullet : MonoBehaviour
 
     private void HandleHit(GameObject hit, Vector3 point)
     {
+        /*
         Enemy enemy = hit.GetComponentInParent<Enemy>();
         if (enemy != null)
         {
             enemy.Die();
         }
         Destroy(gameObject);
+        */
     }
 }
