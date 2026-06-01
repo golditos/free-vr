@@ -30,13 +30,11 @@ public class Bullet : MonoBehaviour
 
     private void HandleHit(GameObject hit, Vector3 point)
     {
-        /*
-        Enemy enemy = hit.GetComponentInParent<Enemy>();
+        EnemyAI enemy = hit.GetComponentInParent<EnemyAI>();
         if (enemy != null)
         {
-            enemy.Die();
+            enemy.TakeDamage(1);
         }
         Destroy(gameObject);
-        */
     }
 }

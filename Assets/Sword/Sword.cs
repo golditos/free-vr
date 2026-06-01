@@ -17,13 +17,12 @@ public class Sword : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Trigger with " + other.name);
-        /*
-           Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
+        
+           EnemyAI enemy = other.gameObject.GetComponentInParent<EnemyAI>();
            if (enemy)
            {
-               enemy.Die;
+               enemy.TakeDamage(1);
            };
-       */
         
     }
 }
