@@ -5,13 +5,14 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField] private Transform target;
-
+    
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float stoppingDistance = 1.5f;
     [SerializeField] private bool flyingEnemy = false;
     [SerializeField] private float flyingHeight = 2.5f;
-
+    [Header("Rotation Fix")]
+    [SerializeField] private float rotationYOffset = 0f;
     [Header("Health")]
     [SerializeField] private int maxHealth = 3;
 
@@ -98,7 +99,8 @@ public class EnemyAI : MonoBehaviour
 
         if (flatDirection.sqrMagnitude > 0.001f)
         {
-            transform.rotation = Quaternion.LookRotation(flatDirection);
+            Quaternion lookRotation = Quaternion.LookRotation(flatDirection);
+            transform.rotation = lookRotation * Quaternion.Euler(0f, rotationYOffset, 0f);
         }
     }
 

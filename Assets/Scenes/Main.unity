@@ -1107,6 +1107,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &942991518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 942991520}
+  - component: {fileID: 942991519}
+  m_Layer: 0
+  m_Name: SpawnerGhost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &942991519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942991518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc9096903d96b044b113d5ed27b50b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 7252557991237821940, guid: 62d2a7f5da1084f6994dcbca19a2ddb2, type: 3}
+  targetOverride: {fileID: 380184004}
+  spawnPoints: []
+  spawnInterval: 3
+  maxAlive: 5
+  randomRadius: 14.5
+  spawnOnStart: 1
+  autoStart: 1
+  heightMode: 0
+  fixedHeight: 0
+  minHeight: 1
+  maxHeight: 10
+  groundOffset: 0.05
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundRaycastStartHeight: 20
+  groundRaycastDistance: 50
+--- !u!4 &942991520
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942991518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1100850005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1936,4 +1998,5 @@ SceneRoots:
   - {fileID: 1770579108}
   - {fileID: 1238629927}
   - {fileID: 203973307}
+  - {fileID: 942991520}
   - {fileID: 1100850005}
