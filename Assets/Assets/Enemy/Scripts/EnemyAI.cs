@@ -5,18 +5,28 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField] private Transform target;
-    
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float stoppingDistance = 1.5f;
     [SerializeField] private bool flyingEnemy = false;
     [SerializeField] private float flyingHeight = 2.5f;
+
     [Header("Rotation Fix")]
     [SerializeField] private float rotationYOffset = 0f;
+
     [Header("Health")]
     [SerializeField] private int maxHealth = 3;
+    [SerializeField] private float hitCooldown = 0.15f;
+
+    [Header("Death Effect")]
+    [SerializeField] private GameObject deathEffectPrefab;
+    [SerializeField] private Vector3 deathEffectOffset = Vector3.zero;
+    [SerializeField] private float deathEffectDestroyDelay = 3f;
 
     private int currentHealth;
+    private float lastHitTime = -999f;
+    private bool isDead = false;
     private Rigidbody rb;
 
     private void Awake()
@@ -45,6 +55,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead) return;
         if (target == null) return;
 
         MoveTowardsTarget();
@@ -53,6 +64,67 @@ public class EnemyAI : MonoBehaviour
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
+    }
+
+    public void SetFlyingHeight(float newFlyingHeight)
+    {
+        flyingHeight = newFlyingHeight;
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        if (isDead) return;
+
+        if (Time.time - lastHitTime < hitCooldown)
+        {
+            return;
+        }
+
+        lastHitTime = Time.time;
+
+        currentHealth -= damageAmount;
+
+        Debug.Log($"{name} recibió daño. Vida restante: {currentHealth}");
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        if (isDead) return;
+
+        isDead = true;
+
+        SpawnDeathEffect();
+
+        Destroy(gameObject);
+    }
+
+    private void SpawnDeathEffect()
+    {
+        if (deathEffectPrefab == null)
+        {
+            Debug.LogWarning($"{name}: no tiene Death Effect Prefab asignado.");
+            return;
+        }
+
+        GameObject effect = Instantiate(
+            deathEffectPrefab,
+            transform.position + deathEffectOffset,
+            Quaternion.identity
+        );
+
+        ParticleSystem[] particles = effect.GetComponentsInChildren<ParticleSystem>();
+
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Play();
+        }
+
+        Destroy(effect, deathEffectDestroyDelay);
     }
 
     private void MoveTowardsTarget()
@@ -89,10 +161,7 @@ public class EnemyAI : MonoBehaviour
 
         RotateTowards(direction);
     }
-    public void SetFlyingHeight(float newFlyingHeight)
-    {
-        flyingHeight = newFlyingHeight;
-    }
+
     private void RotateTowards(Vector3 direction)
     {
         Vector3 flatDirection = new Vector3(direction.x, 0f, direction.z);
@@ -103,14 +172,10 @@ public class EnemyAI : MonoBehaviour
             transform.rotation = lookRotation * Quaternion.Euler(0f, rotationYOffset, 0f);
         }
     }
-
-    public void TakeDamage(int damageAmount)
+    public void KillInstantly()
     {
-        currentHealth -= damageAmount;
+        if (isDead) return;
 
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
+        Die();
     }
 }

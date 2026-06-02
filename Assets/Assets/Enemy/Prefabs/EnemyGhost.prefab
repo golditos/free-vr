@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8242d247159ec462794ba075ca8c938e, type: 3}
       propertyPath: m_Name
-      value: Ghost_animation
+      value: EnemyGhost
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -65,6 +65,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8242d247159ec462794ba075ca8c938e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8669921191574343112}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8242d247159ec462794ba075ca8c938e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4015830619194885937}
   m_SourcePrefab: {fileID: 100100000, guid: 8242d247159ec462794ba075ca8c938e, type: 3}
 --- !u!1 &7252557991237821940 stripped
 GameObject:
@@ -112,7 +115,11 @@ MonoBehaviour:
   flyingEnemy: 1
   flyingHeight: 1.5
   rotationYOffset: 0
-  maxHealth: 3
+  maxHealth: 1
+  hitCooldown: 0.15
+  deathEffectPrefab: {fileID: 2788505049493147717, guid: 730fc1d5a058ad54a88cd9f7e49abbd2, type: 3}
+  deathEffectOffset: {x: 0, y: 0, z: 0}
+  deathEffectDestroyDelay: 3
 --- !u!54 &8669921191574343112
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,3 +147,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-4015830619194885937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252557991237821940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c8011efd68dd3a479ed16b665eac7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

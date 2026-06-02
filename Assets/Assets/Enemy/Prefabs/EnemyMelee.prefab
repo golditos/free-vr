@@ -69,6 +69,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fc9987ed6a6989a469a6ff6972c2cba1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4225599919391657797}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fc9987ed6a6989a469a6ff6972c2cba1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3154712414397481355}
   m_SourcePrefab: {fileID: 100100000, guid: fc9987ed6a6989a469a6ff6972c2cba1, type: 3}
 --- !u!1 &7709966165539730918 stripped
 GameObject:
@@ -120,7 +123,11 @@ MonoBehaviour:
   flyingEnemy: 0
   flyingHeight: 2.5
   rotationYOffset: 180
-  maxHealth: 3
+  maxHealth: 1
+  hitCooldown: 0.15
+  deathEffectPrefab: {fileID: 511905821074784749, guid: 2c6c1ea401468fd45ba486c592e8d98d, type: 3}
+  deathEffectOffset: {x: 0, y: 0, z: 0}
+  deathEffectDestroyDelay: 3
 --- !u!136 &4225599919391657797
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -144,3 +151,15 @@ CapsuleCollider:
   m_Height: 2.0186865
   m_Direction: 1
   m_Center: {x: -0.03999999, y: 0.9104589, z: -0.20999998}
+--- !u!114 &-3154712414397481355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7709966165539730918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c8011efd68dd3a479ed16b665eac7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
