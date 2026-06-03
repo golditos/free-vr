@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("Game State")]
+    [SerializeField] private bool gameStarted = false;
+    [SerializeField] private EnemySpawner[] enemySpawners;
+
     [Header("Player")]
     [SerializeField] private int maxLives = 3;
     private int currentLives;
@@ -18,6 +22,7 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI livesText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private GameObject startTextObject;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI finalScoreText;
 
@@ -25,12 +30,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         Instance = this;
         Time.timeScale = 1f;
     }
@@ -44,11 +43,18 @@ public class GameManager : MonoBehaviour
             gameOverPanel.SetActive(false);
         }
 
+        if (startTextObject != null)
+        {
+            startTextObject.SetActive(true);
+        }
+
+        StopAllSpawners();
         UpdateUI();
     }
 
     private void Update()
     {
+        if (!gameStarted) return;
         if (isGameOver) return;
 
         survivalTime += Time.deltaTime;
@@ -57,8 +63,29 @@ public class GameManager : MonoBehaviour
         UpdateUI();
     }
 
+    public void StartGame()
+    {
+        if (gameStarted) return;
+        if (isGameOver) return;
+
+        gameStarted = true;
+        survivalTime = 0f;
+        score = 0;
+
+        if (startTextObject != null)
+        {
+            startTextObject.SetActive(false);
+        }
+
+        StartAllSpawners();
+
+        Debug.Log("Game started");
+        UpdateUI();
+    }
+
     public void TakePlayerDamage(int damage)
     {
+        if (!gameStarted) return;
         if (isGameOver) return;
 
         currentLives -= damage;
@@ -76,6 +103,8 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
 
+        StopAllSpawners();
+
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
@@ -87,6 +116,28 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 0f;
+    }
+
+    private void StartAllSpawners()
+    {
+        foreach (EnemySpawner spawner in enemySpawners)
+        {
+            if (spawner != null)
+            {
+                spawner.StartSpawning();
+            }
+        }
+    }
+
+    private void StopAllSpawners()
+    {
+        foreach (EnemySpawner spawner in enemySpawners)
+        {
+            if (spawner != null)
+            {
+                spawner.StopSpawning();
+            }
+        }
     }
 
     private void UpdateUI()

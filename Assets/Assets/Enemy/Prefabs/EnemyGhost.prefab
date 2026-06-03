@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   moveSpeed: 2
-  stoppingDistance: 1.5
+  stoppingDistance: 0.3
   flyingEnemy: 1
   flyingHeight: 1.5
   rotationYOffset: 0
@@ -159,3 +159,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c8011efd68dd3a479ed16b665eac7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
+  destroyEnemyAfterHit: 1
